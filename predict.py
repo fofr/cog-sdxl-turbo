@@ -15,7 +15,7 @@ class Predictor(BasePredictor):
         """Load the model into memory to make running multiple predictions efficient"""
 
         start = time.time()
-        # WeightsDownloader.download_if_not_exists(SDXL_URL, SDXL_MODEL_CACHE)
+        WeightsDownloader.download_if_not_exists(SDXL_URL, SDXL_MODEL_CACHE)
 
         print("Loading sdxl turbo txt2img pipeline...")
         self.txt2img_pipe = AutoPipelineForText2Image.from_pretrained(
@@ -53,11 +53,11 @@ class Predictor(BasePredictor):
         num_outputs: int = Input(
             description="Number of images to output",
             ge=1,
-            le=4,
+            le=30,
             default=1,
         ),
         num_inference_steps: int = Input(
-            description="Number of denoising steps", ge=1, le=100, default=1
+            description="Number of denoising steps", ge=1, le=4, default=1
         ),
         seed: int = Input(
             description="Random seed. Leave blank to randomize the seed", default=None
@@ -66,10 +66,10 @@ class Predictor(BasePredictor):
         start = time.time()
 
         """Run a single prediction on the model."""
-        # if not agree_to_research_only:
-        #     raise Exception(
-        #         "You must agree to use this model for research-only, you cannot use this model comercially."
-        #     )
+        if not agree_to_research_only:
+            raise Exception(
+                "You must agree to use this model for research-only, you cannot use this model comercially."
+            )
 
         if seed is None:
             seed = int.from_bytes(os.urandom(2), "big")

@@ -11,11 +11,11 @@ build:
     - "libxext6"
   python_packages:
     - "diffusers==0.23.1"
-    - "torch==2.1.1"
+    - "torch==2.0.1"
     - "transformers==4.31.0"
     - "invisible-watermark==0.2.0"
     - "accelerate==0.21.0"
-    - "torchvision==0.16.1"
+    - "torchvision==0.15.2"
     - "numpy==1.25.1"
     - "fire==0.5.0"
     - "opencv-python-headless>=4.1.0.25"
